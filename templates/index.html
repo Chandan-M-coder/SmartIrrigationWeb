@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Irrigation</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+            🌱
+        </div>
+
+        <div class="brand">
+            <h1>Smart Irrigation</h1>
+            <p>AI Powered • LoRa Enabled</p>
+        </div>
+
+        <div class="connection">
+            🟢 Connected
+        </div>
+
+        <div class="farmer">
+            👨‍🌾 Farmer
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTAINER -->
+
+    <div class="layout">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="menu active">
+                🏠
+                <span>Dashboard</span>
+            </div>
+
+            <div class="menu">
+                📡
+                <span>Live Monitoring</span>
+            </div>
+
+            <div class="menu">
+                🌱
+                <span>Crop Selection</span>
+            </div>
+
+            <div class="menu" onclick="openModal('historyModal')">
+                📊
+                <span>History</span>
+            </div>
+
+            <div class="menu" onclick="openModal('alertsModal')">
+                🔔
+                <span>Alerts</span>
+            </div>
+
+            <div class="menu" onclick="openModal('settingsModal')">
+                ⚙️
+                <span>Settings</span>
+            </div>
+
+        </aside>
+
+
+        <!-- CONTENT -->
+
+        <main class="content">
+
+
+            <!-- WELCOME BANNER -->
+
+            <section class="welcome">
+
+                <div>
+
+                    <h2>Hello, Farmer! 👋</h2>
+
+                    <p>
+                        Monitor your field, get AI suggestions
+                        and save water with Smart Irrigation.
+                    </p>
+
+                </div>
+
+
+                <div class="crop-display">
+
+                    <span>Current Crop</span>
+
+                    <strong id="currentCrop">
+                        Tomato
+                    </strong>
+
+                    🍅
+
+                </div>
+
+            </section>
+
+
+            <!-- SENSOR CARDS -->
+
+            <section class="sensor-grid">
+
+
+                <div class="sensor-card">
+
+                    <div class="sensor-icon blue">
+                        💧
+                    </div>
+
+                    <p>Soil Moisture</p>
+
+                    <h2 id="soilValue">
+                        32%
+                    </h2>
+
+                    <span class="status low">
+                        Low
+                    </span>
+
+                </div>
+
+
+                <div class="sensor-card">
+
+                    <div class="sensor-icon red">
+                        🌡️
+                    </div>
+
+                    <p>Temperature</p>
+
+                    <h2 id="temperatureValue">
+                        29°C
+                    </h2>
+
+                    <span class="status normal">
+                        Normal
+                    </span>
+
+                </div>
+
+
+                <div class="sensor-card">
+
+                    <div class="sensor-icon blue">
+                        💦
+                    </div>
+
+                    <p>Humidity</p>
+
+                    <h2 id="humidityValue">
+                        64%
+                    </h2>
+
+                    <span class="status normal">
+                        Normal
+                    </span>
+
+                </div>
+
+
+                <div class="sensor-card">
+
+                    <div class="sensor-icon purple">
+                        🌧️
+                    </div>
+
+                    <p>Rain</p>
+
+                    <h2 id="rainValue">
+                        No
+                    </h2>
+
+                    <span class="status normal">
+                        Not Detected
+                    </span>
+
+                </div>
+
+
+                <div class="sensor-card">
+
+                    <div class="sensor-icon green">
+                        🚰
+                    </div>
+
+                    <p>Water Level</p>
+
+                    <h2 id="waterValue">
+                        72%
+                    </h2>
+
+                    <span class="status normal">
+                        Normal
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- AI + CHART -->
+
+            <section class="main-grid">
+
+
+                <!-- AI PREDICTION -->
+
+                <div class="ai-card">
+
+                    <h2>
+                        🤖 AI Irrigation Prediction
+                    </h2>
+
+                    <div class="prediction">
+
+                        <div class="prediction-icon">
+                            💧
+                        </div>
+
+                        <h1 id="prediction">
+                            IRRIGATION REQUIRED
+                        </h1>
+
+                        <p id="predictionText">
+
+                            Soil moisture is low and no rain
+                            is detected. It is recommended
+                            to start irrigation.
+
+                        </p>
+
+                    </div>
+
+                    <button onclick="showDetails()">
+                        View Details →
+                    </button>
+
+                </div>
+
+
+                <!-- SENSOR TREND -->
+
+                <div class="chart-card">
+
+                    <h2>
+                        📈 Sensor Trends
+                    </h2>
+
+                    <p>
+                        Last 24 Hours
+                    </p>
+
+                    <div class="chart">
+
+                        <div class="bar b1"></div>
+                        <div class="bar b2"></div>
+                        <div class="bar b3"></div>
+                        <div class="bar b4"></div>
+                        <div class="bar b5"></div>
+                        <div class="bar b6"></div>
+                        <div class="bar b7"></div>
+                        <div class="bar b8"></div>
+                        <div class="bar b9"></div>
+                        <div class="bar b10"></div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- LOWER SECTION -->
+
+            <section class="lower-grid">
+
+
+                <!-- RECENT DATA -->
+
+                <div class="panel">
+
+                    <h2>
+                        📋 Recent Sensor Data
+                    </h2>
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Sensor</th>
+                                <th>Value</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>💧 Soil Moisture</td>
+                                <td id="tableSoil">32%</td>
+                                <td>
+                                    <span class="status low">
+                                        Low
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>🌡️ Temperature</td>
+                                <td id="tableTemp">29°C</td>
+                                <td>
+                                    <span class="status normal">
+                                        Normal
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>💦 Humidity</td>
+                                <td id="tableHumidity">64%</td>
+                                <td>
+                                    <span class="status normal">
+                                        Normal
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>🌧️ Rain</td>
+                                <td id="tableRain">No</td>
+                                <td>
+                                    <span class="status normal">
+                                        No Rain
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>🚰 Water Level</td>
+                                <td id="tableWater">72%</td>
+                                <td>
+                                    <span class="status normal">
+                                        Normal
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- CROP -->
+
+                <div class="panel">
+
+                    <h2>
+                        🌱 Crop Selection
+                    </h2>
+
+                    <label>
+                        Select your crop
+                    </label>
+
+                    <select id="cropSelect">
+
+                        <option value="Tomato">
+                            🍅 Tomato
+                        </option>
+
+                        <option value="Chilli">
+                            🌶️ Chilli
+                        </option>
+
+                        <option value="Potato">
+                            🥔 Potato
+                        </option>
+
+                        <option value="Onion">
+                            🧅 Onion
+                        </option>
+
+                        <option value="Cabbage">
+                            🥬 Cabbage
+                        </option>
+
+                    </select>
+
+                    <button
+                        class="crop-button"
+                        onclick="updateCrop()">
+
+                        Save Crop
+
+                    </button>
+
+                    <div class="info">
+
+                        💡 Different crops need different
+                        water levels. The AI model uses
+                        the selected crop during prediction.
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK ACTIONS -->
+
+                <div class="panel">
+
+                    <h2>
+                        ⚡ Quick Actions
+                    </h2>
+
+                    <button class="action" onclick="refreshData()">
+                        🔄 Refresh Data
+                    </button>
+
+                    <button class="action" onclick="openModal('historyModal')">
+                        📊 View History
+                    </button>
+
+                    <button class="action" onclick="openModal('alertsModal')">
+                        🔔 Alerts
+                    </button>
+
+                    <button class="action" onclick="openModal('settingsModal')">
+                        ⚙️ Settings
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- SUGGESTION -->
+
+            <section class="suggestion">
+
+                <div>
+
+                    <h3>
+                        🌱 Today's Suggestion
+                    </h3>
+
+                    <p>
+                        Soil moisture is below the optimal
+                        level. Consider irrigation within
+                        the next 6 hours.
+                    </p>
+
+                </div>
+
+                <div>
+                    ☀️ Weather
+                    <strong>28°C</strong>
+                </div>
+
+                <div>
+                    🔋 Solar Power
+                    <strong>78%</strong>
+                </div>
+
+            </section>
+
+
+            <!-- PUMP CONTROL -->
+
+            <section class="pump-panel panel">
+
+                <div>
+                    <h2>🚰 Pump Control</h2>
+                    <p class="pump-description">Control the irrigation pump from the dashboard.</p>
+                </div>
+
+                <div class="pump-status-wrap">
+                    <span id="pumpIndicator" class="pump-indicator off">●</span>
+                    <strong id="pumpStatus">Pump OFF</strong>
+                </div>
+
+                <button id="pumpToggle" class="pump-toggle off" onclick="togglePump()">
+                    Turn Pump ON
+                </button>
+
+                <small class="demo-note">Demo control: this changes the dashboard state and history. A real physical pump needs an IoT/microcontroller connection.</small>
+
+            </section>
+
+
+            <!-- MODALS -->
+
+            <div id="historyModal" class="modal" onclick="closeOnBackdrop(event, 'historyModal')">
+                <div class="modal-card">
+                    <button class="modal-close" onclick="closeModal('historyModal')">×</button>
+                    <h2>📊 Irrigation History</h2>
+                    <p class="modal-subtitle">Recent pump and irrigation events.</p>
+                    <div id="historyList" class="history-list"></div>
+                    <button class="secondary-button" onclick="clearHistory()">Clear History</button>
+                </div>
+            </div>
+
+            <div id="alertsModal" class="modal" onclick="closeOnBackdrop(event, 'alertsModal')">
+                <div class="modal-card">
+                    <button class="modal-close" onclick="closeModal('alertsModal')">×</button>
+                    <h2>🔔 Alerts</h2>
+                    <p class="modal-subtitle">Current irrigation system notifications.</p>
+                    <div id="alertsList" class="alerts-list"></div>
+                </div>
+            </div>
+
+            <div id="settingsModal" class="modal" onclick="closeOnBackdrop(event, 'settingsModal')">
+                <div class="modal-card">
+                    <button class="modal-close" onclick="closeModal('settingsModal')">×</button>
+                    <h2>⚙️ Settings</h2>
+                    <p class="modal-subtitle">Configure the dashboard simulation.</p>
+
+                    <label for="thresholdInput">Low moisture alert threshold (%)</label>
+                    <input id="thresholdInput" class="settings-input" type="number" min="1" max="99" value="35">
+
+                    <label class="switch-row">
+                        <input id="autoModeInput" type="checkbox">
+                        <span>Enable automatic irrigation mode</span>
+                    </label>
+
+                    <button class="primary-button" onclick="saveSettings()">Save Settings</button>
+                </div>
+            </div>
+
+
+            <!-- FOOTER -->
+
+            <footer>
+
+                Smart Irrigation System
+                • Powered by AI
+                • LoRa Communication
+                • Sustainable Farming
+
+            </footer>
+
+
+        </main>
+
+    </div>
+
+
+    <script
+        src="{{ url_for('static', filename='script.js') }}">
+    </script>
+
+</body>
+
+</html>
